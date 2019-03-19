@@ -1,0 +1,125 @@
+%4.1
+clear;
+I1=imread('E:\刘克勤\学习\大三下\数字图像处理\第4-次作业\test1.pgm');
+I2=imread('E:\刘克勤\学习\大三下\数字图像处理\第4-次作业\test2.tif');
+G3=fspecial('gaussian');
+G5=fspecial('gaussian',5);
+G7=fspecial('gaussian',7);
+J13=imfilter(I1,G3);
+J15=imfilter(I1,G5);
+J17=imfilter(I1,G7);
+subplot(2,4,1);
+imshow(I1);
+subplot(2,4,2);
+imshow(J13);
+subplot(2,4,3);
+imshow(J15);
+subplot(2,4,4);
+imshow(J17);
+
+J23=imfilter(I2,G3);
+J25=imfilter(I2,G5);
+J27=imfilter(I2,G7);
+subplot(2,4,5);
+imshow(I2);
+subplot(2,4,6);
+imshow(J23);
+subplot(2,4,7);
+imshow(J25);
+subplot(2,4,8);
+imshow(J27);
+
+M13=medfilt2(I1,[3 3]);
+M15=medfilt2(I1,[5 5]);
+M17=medfilt2(I1,[7 7]);
+figure(2);
+subplot(2,4,1);
+imshow(I1);
+subplot(2,4,2);
+imshow(M13);
+subplot(2,4,3);
+imshow(M15);
+subplot(2,4,4);
+imshow(M17);
+
+M23=medfilt2(I2,[3 3]);
+M25=medfilt2(I2,[5 5]);
+M27=medfilt2(I2,[7 7]);
+subplot(2,4,5);
+imshow(I2);
+subplot(2,4,6);
+imshow(M23);
+subplot(2,4,7);
+imshow(M25);
+subplot(2,4,8);
+imshow(M27);
+
+
+%4.2
+for k=3:2:7
+    for i=1:k
+        for j=1:k
+            a=i-(k+1)/2;
+            b=j-(k+1)/2;
+            str=['G',num2str(k),'(',num2str(i),',',num2str(j),')=1/(2*pi*1.5^2)*exp(-',num2str(a*a+b*b),'/(2*1.5^2));']
+            eval(str);
+        end
+    end
+end
+G3=G3/sum(G3(:));
+G5=G5/sum(G5(:));
+G7=G7/sum(G7(:));
+J13=imfilter(I1,G3);
+J15=imfilter(I1,G5);
+J17=imfilter(I1,G7);
+subplot(2,4,1);
+imshow(I1);
+subplot(2,4,2);
+imshow(J13);
+subplot(2,4,3);
+imshow(J15);
+subplot(2,4,4);
+imshow(J17);
+
+J23=imfilter(I2,G3);
+J25=imfilter(I2,G5);
+J27=imfilter(I2,G7);
+subplot(2,4,5);
+imshow(I2);
+subplot(2,4,6);
+imshow(J23);
+subplot(2,4,7);
+imshow(J25);
+subplot(2,4,8);
+imshow(J27);
+
+
+%4.3
+I3=imread('E:\刘克勤\学习\大三下\数字图像处理\第4-次作业\test3_corrupt.pgm');
+I4=imread('E:\刘克勤\学习\大三下\数字图像处理\第4-次作业\test4 copy.bmp');
+U=fspecial('unsharp');
+UM3=filter2(U,I3);
+subplot(2,5,1);imshow(I3);
+subplot(2,5,2);imshow(UM3);
+
+SM3=edge(I3,'sobel');
+subplot(2,5,3);imshow(SM3);
+
+LM3=edge(I3,'log');
+subplot(2,5,4);imshow(LM3);
+
+CM3=edge(I3,'canny');
+subplot(2,5,5);imshow(CM3);
+
+UM4=imfilter(I4,U);
+subplot(2,5,6);imshow(I4);
+subplot(2,5,7);imshow(UM4);
+
+SM4=edge(I4,'sobel');
+subplot(2,5,8);imshow(SM4);
+
+LM4=edge(I4,'log');
+subplot(2,5,9);imshow(LM4);
+
+CM4=edge(I4,'canny');
+subplot(2,5,10);imshow(CM4);
